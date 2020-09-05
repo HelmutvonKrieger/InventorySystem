@@ -8,13 +8,13 @@ namespace Code.ScriptableObjects
 
     public class Item : ScriptableObject
     {
-        [SerializeField] public string ItemName;
-        [SerializeField] public string ItemDescription;
-        [SerializeField] public int ItemMaxStacks;
+        [SerializeField] public string ItemName { get => _itemName; set => _itemName = value; }
+        [SerializeField] public string ItemDescription { get => _itemDescription; set => _itemDescription = value; }
+        [SerializeField] public int ItemMaxStacks { get => _itemMaxStacks; set => _itemMaxStacks = value; }
 
-        private string _itemName { get => ItemName; set => ItemName = value; }
-        private string _itemDescription { get => ItemDescription; set => ItemDescription = value; }
-        private int _itemMaxStacks { get => ItemMaxStacks; set => ItemMaxStacks = value; }
+        private string _itemName;
+        private string _itemDescription; 
+        private int _itemMaxStacks; 
     }
 }
 
