@@ -12,8 +12,9 @@ namespace Code.ScriptableObjects
 
     public class Gear : Item
     {
-        [SerializeField] public int Durability { get; set; }
         private int _durability;
+        [SerializeField] public int Durability { get; set; }
+
 
         Gear(string name, string description, int maxStacks, int durability)
         {

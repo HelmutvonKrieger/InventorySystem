@@ -12,8 +12,9 @@ namespace Code.ScriptableObjects
 
     public class Consumable : Item
     {
-        [SerializeField] public int UseCount { get => _useCount; set => _useCount = value; }
         private int _useCount;
+        [SerializeField] public int UseCount { get => _useCount; set => _useCount = value; }
+
 
         Consumable(string name, string description, int maxStacks, int useCount)
         {
