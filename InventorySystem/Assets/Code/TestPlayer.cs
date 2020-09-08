@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Code.ScriptableObjects;
+using System.Linq;
 
 public class TestPlayer : MonoBehaviour
 {
@@ -42,10 +43,6 @@ public class TestPlayer : MonoBehaviour
         _playerHealth = MaxPlayerHealth;
         _playerMana = MaxPlayerMana;
         _playerStamina = MaxPlayerStamina;
-
-        Debug.LogWarning($"Starting health is {PlayerHealth}");
-        Debug.LogWarning($"Starting mana is {PlayerMana}");
-        Debug.LogWarning($"Starting stamina is {PlayerStamina}");
     }
 
     // Update is called once per frame
@@ -68,7 +65,7 @@ public class TestPlayer : MonoBehaviour
 
     public void UseHealthPotion()
     {
-        modifyPlayerHealth(30);
+        modifyPlayerHealth(15);
         return;
     }
 
@@ -76,6 +73,18 @@ public class TestPlayer : MonoBehaviour
     {
         modifyPlayerMana(-30);
         return;
+    }
+
+    public void UseManaPotion()
+    {
+        modifyPlayerMana(15);
+        return;
+    }
+
+    public void GetItemInInventory(string itemName)
+    {
+        Item item = InventorySystem.InventoryItemDict.Where((i) => i.Key == itemName).FirstOrDefault().Value;
+        Debug.LogWarning(item.ItemDescription);
     }
 
     #endregion Public Methods
@@ -155,10 +164,15 @@ public class TestPlayer : MonoBehaviour
 
     #endregion Set Stats
 
-    //private void RechargeMana()
-    //{
-    //    modifyPlayerMana(1);
-    //}
+    private void RechargeMana()
+    {
+        modifyPlayerMana(1);
+    }
+
+    private void UseConsumableItem(string itemName)
+    {
+
+    }
 
     #endregion Private Methods
 }

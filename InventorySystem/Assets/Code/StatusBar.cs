@@ -18,8 +18,9 @@ public class StatusBar : MonoBehaviour
     [SerializeField] public int MaxValue;
     [SerializeField] public int CurrentValue;
     [SerializeField] public TextMeshProUGUI DisplayText;
+    [SerializeField] public Scrollbar Scrollbar;
 
-    StatusBar(string name, int maxValue = 100, int currentValue = 100)
+    public StatusBar(string name, int maxValue = 100, int currentValue = 100)
     {
         Name = name;
         MaxValue = maxValue;
@@ -33,15 +34,16 @@ public class StatusBar : MonoBehaviour
 
     void Update()
     {
-        UpdateValueText();
+        UpdateStatusBar();
     }
 
-    public void UpdateValueText()
+    public void UpdateStatusBar()
     {
-        if (CurrentValue != NewValue)
+        if (CurrentValue != NewValue) // Only redraw the screen if something has changed
         {
             CurrentValue = NewValue;
             DisplayText.text = $"{CurrentValue}/{MaxValue}";
+            Scrollbar.size = ((float)CurrentValue / 100); // Scrollbar size is 0 - 1
         }
     }
 }

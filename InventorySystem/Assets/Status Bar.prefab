@@ -220,11 +220,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 471abae08f85b814f9d7866e7c75f61e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NewValue: 0
   Name: 
   MaxValue: 0
   CurrentValue: 0
   DisplayText: {fileID: 0}
-  DisplayText2: {fileID: 3048453496222099387}
+  Scrollbar: {fileID: 3048453496840350139}
 --- !u!1 &3048453496840350117
 GameObject:
   m_ObjectHideFlags: 0
