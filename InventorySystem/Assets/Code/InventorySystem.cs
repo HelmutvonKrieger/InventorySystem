@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using TMPro;
 using UnityEngine;
 using Code.ScriptableObjects;
+using UnityEngine.UIElements;
 
 public class InventorySystem : MonoBehaviour
 {
@@ -17,14 +18,15 @@ public class InventorySystem : MonoBehaviour
         Consumable healthPot = ScriptableObject.CreateInstance<Consumable>() ;
         healthPot.ItemName = "Health Potion";
         healthPot.ItemDescription = "Consume to restore 15 HP";
+        //healthPot.ItemSprite = 
 
         Consumable manaPot = ScriptableObject.CreateInstance<Consumable>();
-        healthPot.ItemName = "Mana Potion";
-        healthPot.ItemDescription = "Consume to restore 15 MP";
+        manaPot.ItemName = "Mana Potion";
+        manaPot.ItemDescription = "Consume to restore 15 MP";
 
         Gear ironSword = ScriptableObject.CreateInstance<Gear>();
-        healthPot.ItemName = "Iron Sword";
-        healthPot.ItemDescription = "A slightly rusty sword that has seen better days";
+        ironSword.ItemName = "Iron Sword";
+        ironSword.ItemDescription = "A slightly rusty sword that has seen better days";
 
         InventoryItemDict = new Dictionary<string, Item>()
         {
