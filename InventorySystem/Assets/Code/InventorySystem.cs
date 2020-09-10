@@ -13,6 +13,12 @@ public class InventorySystem : MonoBehaviour
     [SerializeField] public Dictionary<string, Item> InventoryItemDict;
     [SerializeField] public TMP_Dropdown InventoryDropdown;
 
+    [SerializeField] private GameObject inventorySlotPrefab;
+    [SerializeField] private Transform inventoryContentTransform;
+
+
+    [SerializeField] private List<InventorySlot> inventory;
+
     void Start()
     {
         Consumable healthPot = ScriptableObject.CreateInstance<Consumable>() ;
@@ -38,6 +44,23 @@ public class InventorySystem : MonoBehaviour
         InventoryDropdown.ClearOptions();
         InventoryDropdown.AddOptions(InventoryItemDict.Keys.ToList());
         InventoryDropdown.onValueChanged.AddListener(DropdownValueChanged);
+        
+        // Initialize variables
+        inventory = new List<InventorySlot>();
+
+        if (inventorySlotPrefab == null || inventoryContentTransform == null) {
+            Debug.Log("[InventorySystem] the inventoryslotprefab or the inventory transform is null");
+            return;
+        }
+
+        foreach (var inventorySlotItem in InventoryItemDict) {
+            var item = Instantiate(inventorySlotPrefab, inventoryContentTransform);
+            var itemSlot = item.GetComponent<InventorySlot>();
+            
+            itemSlot.SetItemInformation(inventorySlotItem.Value.ItemName, inventorySlotItem.Value.ItemCurrentCount.ToString(), inventorySlotItem.Value.ItemSprite);
+
+            inventory.Add(itemSlot);
+        }
     }
 
     private void DropdownValueChanged(int position)
