@@ -31,7 +31,6 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler {
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        
         if (item.GetType() == typeof(Consumable))
         {
             if (item.ItemCurrentCount > 0)

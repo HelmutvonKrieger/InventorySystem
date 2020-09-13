@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using Code.ScriptableObjects;
 using UnityEngine.UIElements;
+using Assets.Code;
 
 public class InventorySystem : MonoBehaviour
 {
@@ -35,10 +36,13 @@ public class InventorySystem : MonoBehaviour
         manaPot.ItemName = "Mana Potion";
         manaPot.ItemDescription = "Consume to restore 15 MP";
         manaPot.ItemCurrentCount = 6;
+        manaPot.ItemSprite = Resources.Load<Sprite>("PotionIconsAdd_18");
 
         Gear ironSword = ScriptableObject.CreateInstance<Gear>();
         ironSword.ItemName = "Iron Sword";
         ironSword.ItemDescription = "A slightly rusty sword that has seen better days";
+        ironSword.ItemCurrentCount = 1;
+        ironSword.ItemSprite = Resources.Load<Sprite>("swnt_01");
 
         InventoryItemDict = new Dictionary<string, Item>()
         {
@@ -46,6 +50,8 @@ public class InventorySystem : MonoBehaviour
             { "Mana Potion", manaPot },
             { "Sword", ironSword }
         };
+
+        PlayerManager.PlayerCurrentInventory = InventoryItemDict;
     }
 
     private void PopulateInventory()
@@ -61,27 +67,23 @@ public class InventorySystem : MonoBehaviour
 
         foreach (var inventorySlotItem in InventoryItemDict)
         {
-            var item = Instantiate(inventorySlotPrefab, inventoryContentTransform);
-            var itemSlot = item.GetComponent<InventorySlot>();
+            if (inventorySlotItem.Value.ItemCurrentCount > 0)
+            {
+                var item = Instantiate(inventorySlotPrefab, inventoryContentTransform);
+                var itemSlot = item.GetComponent<InventorySlot>();
 
-            itemSlot.SetItem(inventorySlotItem.Value);
+                itemSlot.SetItem(inventorySlotItem.Value);
 
-            inventory.Add(itemSlot);
+                inventory.Add(itemSlot);
+            }
         }
-
-        
     }
 
     void Update()
     {
-
-    }
-
-    public Item GetInventoryItem(string itemName)
-    {
-        Item testItem = ScriptableObject.CreateInstance<Consumable>();
-        testItem.ItemName = "Stamina Potion";
-        testItem.ItemDescription = "Consume to restore 15 SP";
-        return testItem;
+        if (PlayerManager.PlayerCurrentInventory != null && PlayerManager.PlayerCurrentInventory != InventoryItemDict)
+        {
+            
+        }
     }
 }

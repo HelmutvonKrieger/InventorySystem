@@ -66,6 +66,17 @@ public class TestPlayer : MonoBehaviour
         return;
     }
 
+    public void AddItem()
+    {
+        Consumable staminaPot = ScriptableObject.CreateInstance<Consumable>();
+        staminaPot.ItemName = "Stamina Potion";
+        staminaPot.ItemDescription = "Consume to restore 15 SP";
+        staminaPot.ItemCurrentCount = 6;
+        staminaPot.ItemSprite = Resources.Load<Sprite>("PotionIconsAdd_19");
+
+        PlayerManager.AddItemToInventory(staminaPot);
+    }
+
     public void SetPlayerState()
     {
         PlayerManager.PlayerName = "Doug";
@@ -75,7 +86,7 @@ public class TestPlayer : MonoBehaviour
         PlayerManager.PlayerCurrentHealth = PlayerHealth;
         PlayerManager.PlayerCurrentMana = PlayerMana;
         PlayerManager.PlayerCurrentStamina = PlayerStamina;
-        PlayerManager.PlayerCurrentInventory = InventorySystem.InventoryItemDict;
+        //PlayerManager.PlayerCurrentInventory = InventorySystem.InventoryItemDict;
     }
 
     public void TestGetPlayerState()
@@ -84,7 +95,8 @@ public class TestPlayer : MonoBehaviour
             $"\nName: {PlayerManager.PlayerName}" +
             $"\nHP: {PlayerManager.PlayerCurrentHealth}" +
             $"\nMP: {PlayerManager.PlayerCurrentMana}" +
-            $"\nSP: {PlayerManager.PlayerCurrentStamina}");
+            $"\nSP: {PlayerManager.PlayerCurrentStamina}" +
+            $"\nInventory: {PlayerManager.PlayerCurrentInventory}");
     }
 
     #endregion Public Methods

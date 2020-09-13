@@ -54,6 +54,16 @@ namespace Assets.Code
             setPlayerStamina(amount);
         }
 
+        public static void RemoveItemFromInventory(Item item)
+        {
+            PlayerCurrentInventory.Remove(item.ItemName);
+        }
+
+        public static void AddItemToInventory(Item item)
+        {
+            PlayerCurrentInventory.Add(item.ItemName, item);
+        }
+
         #endregion Public Methods
 
         #region Private Methods
