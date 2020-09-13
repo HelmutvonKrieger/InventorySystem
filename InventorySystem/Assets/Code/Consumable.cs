@@ -12,13 +12,15 @@ namespace Code.ScriptableObjects
     public class Consumable : Item
     {
         [SerializeField] public int UseCount;
+        public int RestoreValue;
 
-        public Consumable(string name, string description, int maxCount, int currentCount, int useCount)
+        public Consumable(string name, string description, int maxCount, int currentCount, int restoreValue, int useCount)
         {
             ItemName = name;
             ItemDescription = description;
             ItemMaxCount = maxCount;
             ItemCurrentCount = currentCount;
+            RestoreValue = restoreValue;
             UseCount = useCount;
         }
 

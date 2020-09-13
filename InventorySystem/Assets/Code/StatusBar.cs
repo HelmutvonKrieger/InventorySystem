@@ -29,7 +29,7 @@ public class StatusBar : MonoBehaviour
 
     void Start()
     {
-
+        
     }
 
     void Update()

@@ -14,6 +14,7 @@ namespace Code.ScriptableObjects
         [SerializeField] public string ItemDescription;
         [SerializeField] public int ItemMaxCount;
         [SerializeField] public int ItemCurrentCount;
+        [SerializeField] public int GUID;
 
         public void DisplayItemDescription()
         {

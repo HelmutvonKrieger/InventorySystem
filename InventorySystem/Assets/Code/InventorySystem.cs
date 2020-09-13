@@ -11,24 +11,30 @@ public class InventorySystem : MonoBehaviour
 {
     [SerializeField] public int NumInventorySpaces;
     [SerializeField] public Dictionary<string, Item> InventoryItemDict;
-    [SerializeField] public TMP_Dropdown InventoryDropdown;
 
     [SerializeField] private GameObject inventorySlotPrefab;
     [SerializeField] private Transform inventoryContentTransform;
-
 
     [SerializeField] private List<InventorySlot> inventory;
 
     void Start()
     {
-        Consumable healthPot = ScriptableObject.CreateInstance<Consumable>() ;
+        CreateInventoryItemList();
+        PopulateInventory();
+    }
+
+    private void CreateInventoryItemList()
+    {
+        Consumable healthPot = ScriptableObject.CreateInstance<Consumable>();
         healthPot.ItemName = "Health Potion";
         healthPot.ItemDescription = "Consume to restore 15 HP";
-        //healthPot.ItemSprite = 
+        healthPot.ItemCurrentCount = 6;
+        healthPot.ItemSprite = Resources.Load<Sprite>("PotionIconsAdd_17");
 
         Consumable manaPot = ScriptableObject.CreateInstance<Consumable>();
         manaPot.ItemName = "Mana Potion";
         manaPot.ItemDescription = "Consume to restore 15 MP";
+        manaPot.ItemCurrentCount = 6;
 
         Gear ironSword = ScriptableObject.CreateInstance<Gear>();
         ironSword.ItemName = "Iron Sword";
@@ -40,33 +46,30 @@ public class InventorySystem : MonoBehaviour
             { "Mana Potion", manaPot },
             { "Sword", ironSword }
         };
+    }
 
-        InventoryDropdown.ClearOptions();
-        InventoryDropdown.AddOptions(InventoryItemDict.Keys.ToList());
-        InventoryDropdown.onValueChanged.AddListener(DropdownValueChanged);
-        
+    private void PopulateInventory()
+    {
         // Initialize variables
         inventory = new List<InventorySlot>();
 
-        if (inventorySlotPrefab == null || inventoryContentTransform == null) {
+        if (inventorySlotPrefab == null || inventoryContentTransform == null)
+        {
             Debug.Log("[InventorySystem] the inventoryslotprefab or the inventory transform is null");
             return;
         }
 
-        foreach (var inventorySlotItem in InventoryItemDict) {
+        foreach (var inventorySlotItem in InventoryItemDict)
+        {
             var item = Instantiate(inventorySlotPrefab, inventoryContentTransform);
             var itemSlot = item.GetComponent<InventorySlot>();
-            
-            itemSlot.SetItemInformation(inventorySlotItem.Value.ItemName, inventorySlotItem.Value.ItemCurrentCount.ToString(), inventorySlotItem.Value.ItemSprite);
+
+            itemSlot.SetItem(inventorySlotItem.Value);
 
             inventory.Add(itemSlot);
         }
-    }
 
-    private void DropdownValueChanged(int position)
-    {
-        Item item = InventoryItemDict.Values.ElementAt(position);
-        Debug.Log($"{item.ItemName} : {item.ItemDescription}");
+        
     }
 
     void Update()
